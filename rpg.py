@@ -120,8 +120,8 @@ if args.output_file:
         f.write('\n'.join(passwords))
         
 if not sys.argv[1:]:
-        print (Fore.YELLOW+"["+Fore.RED+"X"+Fore.YELLOW+"] Type"+Fore.WHITE+"python rpg.py -h"+Fore.YELLOW+"to view the mannual")
-        delay_print ("[-] Aborting...")
+        print (Fore.YELLOW+"["+Fore.RED+"X"+Fore.YELLOW+"] Type"+Fore.WHITE+" python rpg.py -h "+Fore.YELLOW+"to view the mannual")
+        delay_print ("[-] Exiting...")
         print (" ")
         time.sleep(0.7)
         sys.exit(0)
@@ -132,10 +132,15 @@ else:
 		time.sleep(0.7)
 		print(Fore.BLUE+"**********************************************")
 		print (Fore.BLUE+'['+Fore.WHITE+'+'+Fore.BLUE+'] P@SSW0RD >> ', end="")
-		delay_print (str(passwords))
+		delay_print ("".join(passwords))
 		print(Fore.BLUE+"\n**********************************************")
 		print (" ")
-		
+
+		if args.output_file:
+			print (Fore.BLUE+"["+Fore.WHITE+"+"+Fore.BLUE+"] Saving Generated Password to "+Fore.YELLOW+args.output_file+Fore.BLUE+"...",end="")
+			time.sleep(3)
+			print (Fore.GREEN+"Done.")
+
 		print (Fore.YELLOW+"N0T3 ~~$$", end="")
-		fast_delay_print("Copy Generated Random Password after the \"P@SSW0RD >>\" to your Clipboard for future use... You can also specify the \"-o\" argument to the script to save generated password in a file for future purposes. STAY SAFE... your friendly developer CyberPatriX-S3C\n")
+		fast_delay_print(" Copy Generated Random Password after the \"P@SSW0RD >>\" to your Clipboard for future use... You can also specify the \"-o\" argument to the script to save generated password in a file for future purposes. STAY SAFE... your friendly developer CyberPatriX-S3C\n")
 		sys.exit(0)
