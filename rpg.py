@@ -13,8 +13,13 @@ from colorama import init, Fore, Back, Style
 
 
 init(autoreset=True)
-# clear the terminal
-os.system("clear")
+
+#--- clear function
+def clear():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 __author__ = Fore.WHITE+"CyberPatriX-S3C"
@@ -24,15 +29,15 @@ __version__ = Fore.WHITE+"1.0.3"
 # Banner
 print (Fore.BLUE+"""
 
-                                                             
-                                                             
+
+
 RRRRRRRRRRRRRRRRR   PPPPPPPPPPPPPPPPP           GGGGGGGGGGGGG
 R::::::::::::::::R  P::::::::::::::::P       GGG::::::::::::G
 R::::::RRRRRR:::::R P::::::PPPPPP:::::P    GG:::::::::::::::G
 RR:::::R     R:::::RPP:::::P     P:::::P  G:::::GGGGGGGG::::G
   R::::R     R:::::R  P::::P     P:::::P G:::::G       GGGGGG
-  R::::R     R:::::R  P::::P     P:::::PG:::::G              
-  R::::RRRRRR:::::R   P::::PPPPPP:::::P G:::::G              
+  R::::R     R:::::R  P::::P     P:::::PG:::::G
+  R::::RRRRRR:::::R   P::::PPPPPP:::::P G:::::G
   R:::::::::::::RR    P:::::::::::::PP  G:::::G    GGGGGGGGGG
   R::::RRRRRR:::::R   P::::PPPPPPPPP    G:::::G    G::::::::G
   R::::R     R:::::R  P::::P            G:::::G    GGGGG::::G
@@ -46,11 +51,20 @@ RRRRRRRR     RRRRRRRPPPPPPPPPP                  GGGGGG   GGGG
 """)
 __info = '''
 ---[ {c}Version :  {v}           ]---
----[ {c}Aiuthor :  {a} ]---
+---[ {c}Author :  {a}  ]---
 '''.format(a=__author__, v=__version__, c=Fore.BLUE)
 
 print (__info)
 
+infoBox = Fore.GREEN+f"""
+ ==================[ INFO ]========================
+|       NOTE: To check for updates type;           |
+|               {Fore.WHITE} python update.py{Fore.GREEN}                  |
+|   COPY/PASTE generated password and store in     |
+|             your clipboard for future.           |
+ ==================================================
+"""
+print (infoBox)
 
 # Setting up the Argument Parser
 parser = ArgumentParser(
@@ -65,7 +79,7 @@ parser.add_argument("-u", "--uppercase", default=0, help="Number of uppercase ch
 parser.add_argument("-s", "--special-chars", default=0, help="Number of special chars in the PW", type=int)
 
 # add total pw length argument
-parser.add_argument("-t", "--total-length", type=int, 
+parser.add_argument("-t", "--total-length", type=int,
                     help="The total password length. If passed, it will ignore -n, -l, -u and -s, " \
                     "and generate completely random passwords with the specified length")
 
@@ -79,6 +93,7 @@ args = parser.parse_args()
 
 # list of passwords
 passwords = []
+
 # Looping through the amount of passwords.
 for _ in range(args.amount):
     if args.total_length:
@@ -89,19 +104,19 @@ for _ in range(args.amount):
                 for _ in range(args.total_length)]))
     else:
         password = []
-        # If / how many numbers the password should contain  
+        # If / how many numbers the password should contain
         for _ in range(args.numbers):
             password.append(secrets.choice(string.digits))
 
-        # If / how many uppercase characters the password should contain   
+        # If / how many uppercase characters the password should contain
         for _ in range(args.uppercase):
             password.append(secrets.choice(string.ascii_uppercase))
-        
-        # If / how many lowercase characters the password should contain   
+
+        # If / how many lowercase characters the password should contain
         for _ in range(args.lowercase):
             password.append(secrets.choice(string.ascii_lowercase))
 
-        # If / how many special characters the password should contain   
+        # If / how many special characters the password should contain
         for _ in range(args.special_chars):
             password.append(secrets.choice(string.punctuation))
 
@@ -118,29 +133,32 @@ for _ in range(args.amount):
 if args.output_file:
     with open(args.output_file, 'w') as f:
         f.write('\n'.join(passwords))
-        
+
 if not sys.argv[1:]:
         print (Fore.YELLOW+"["+Fore.RED+"X"+Fore.YELLOW+"] Type"+Fore.WHITE+" python rpg.py -h "+Fore.YELLOW+"to view the mannual")
         delay_print ("[-] Exiting...")
         print (" ")
         time.sleep(0.7)
         sys.exit(0)
-        
+
 else:
-        # Printing the output to the terminal.
-		print (Fore.BLUE+"["+Fore.WHITE+"*"+Fore.BLUE+"] Generating Random Password"+Fore.WHITE+"... ")
-		time.sleep(0.7)
-		print(Fore.BLUE+"**********************************************")
-		print (Fore.BLUE+'['+Fore.WHITE+'+'+Fore.BLUE+'] P@SSW0RD >> ', end="")
-		delay_print ("".join(passwords))
-		print(Fore.BLUE+"\n**********************************************")
-		print (" ")
+        try:
+                # Printing the output to the terminal.
+                print (Fore.BLUE+"["+Fore.WHITE+"*"+Fore.BLUE+"] Generating Random Password"+Fore.WHITE+"... ")
+                time.sleep(0.7)
+                print(Fore.BLUE+"**********************************************")
+                print (Fore.BLUE+'['+Fore.WHITE+'+'+Fore.BLUE+'] P@SSW0RD >> ', end="")
+                delay_print ("".join(passwords))
+                print(Fore.BLUE+"\n**********************************************")
+                print (" ")
 
-		if args.output_file:
-			print (Fore.BLUE+"["+Fore.WHITE+"+"+Fore.BLUE+"] Saving Generated Password to "+Fore.YELLOW+args.output_file+Fore.BLUE+"...",end="")
-			time.sleep(3)
-			print (Fore.GREEN+"Done.")
+                if args.output_file:
+                        print (Fore.BLUE+"["+Fore.WHITE+"+"+Fore.BLUE+"] Saving Generated Password to "+Fore.YELLOW+args.output_file+Fore.BLUE+"...",end="")
+                        time.sleep(3)
+                        print (Fore.GREEN+" [Done]")
 
-		print (Fore.YELLOW+"N0T3 ~~$$", end="")
-		fast_delay_print(" Copy Generated Random Password after the \"P@SSW0RD >>\" to your Clipboard for future use... You can also specify the \"-o\" argument to the script to save generated password in a file for future purposes. STAY SAFE... your friendly developer CyberPatriX-S3C\n")
-		sys.exit(0)
+                print (Fore.YELLOW+"N0T3 ~~$$", end="")
+                fast_delay_print(" Copy Generated Random Password after the \"P@SSW0RD >>\" to your Clipboard for future use... You can also specify the \"-o\" argument to the script to save generated password in a file for future purposes. STAY SAFE... your friendly developer CyberPatriX-S3C\n")
+                sys.exit(0)
+        except KeyboardInterrupt:
+                sys.exit("\n")
