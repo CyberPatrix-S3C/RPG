@@ -15,7 +15,7 @@ def update_func(uname, repo):
 		req = requests.get(url)
 		contents = req.text
 		
-		print(contents)
+		#print(contents)
 	except Exception as e:
 		print(f'[X] Request//Error: {e}')
 	
@@ -54,8 +54,7 @@ def update_func(uname, repo):
 			""")
 			sys.exit(1)
 	except:
-		print ("[X] Something went wrong!")
-		sys.exit(1)
+		pass
 
 userName = "CyberPatrix-S3C"
 repository = "RPG"
