@@ -47,7 +47,9 @@ def update_func(uname, repo):
 			
 			os.system (f"""
 			cd ..
+                        echo "[*] Removing {repo}...
 			rm -rf {repo}
+                        echo "[*] Cloning {repo} from github.com...
 			git clone https://github.com/{uname}/{repo}
 			echo "[+] Successfully Updated!"
 			echo "[✓] Done!"
