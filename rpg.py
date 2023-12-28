@@ -57,12 +57,12 @@ __info = '''
 print (__info)
 
 infoBox = Fore.GREEN+f"""
- ==================[ INFO ]========================
-|       NOTE: To check for updates type;           |
-|               {Fore.WHITE} python update.py{Fore.GREEN}                  |
-|   COPY/PASTE generated password and store in     |
-|             your clipboard for future.           |
- ==================================================
+     ==================[ INFO ]======================
+#--|       NOTE: To check for updates type;           |--#
+#--|               {Fore.WHITE} python update.py{Fore.GREEN}                  |--#
+#--|   COPY/PASTE generated password and store in     |--#
+#--|             your clipboard for future.           |--#
+     ================================================
 """
 print (infoBox)
 
@@ -133,6 +133,7 @@ for _ in range(args.amount):
 if args.output_file:
     with open(args.output_file, 'w') as f:
         f.write('\n'.join(passwords))
+        f.write('\n')
 
 if not sys.argv[1:]:
         print (Fore.YELLOW+"["+Fore.RED+"X"+Fore.YELLOW+"] Type"+Fore.WHITE+" python rpg.py -h "+Fore.YELLOW+"to view the mannual")
